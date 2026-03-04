@@ -96,7 +96,7 @@ export default function MyPending() {
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 10 }}>
                   <div>
-                    <span className="muted">Debés </span>
+                    <span className="muted">Debes </span>
                     <span style={{ fontWeight: 900, fontSize: 18, color: "#ff9800" }}>${clp(r.amount)}</span>
                     <span className="muted"> a </span>
                     <span style={{ fontWeight: 700 }}>{r.to_monster?.display_name}</span>

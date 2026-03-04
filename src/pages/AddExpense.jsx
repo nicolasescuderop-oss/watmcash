@@ -129,12 +129,12 @@ export default function AddExpense() {
         <label className="muted">Descripción</label>
         <input className="input" value={desc} onChange={(e) => setDesc(e.target.value)} placeholder="Ensayo, cuerdas, sala, Uber..." />
 
-        <div className="row" style={{ marginTop: 10 }}>
-          <div style={{ flex: 1 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0,1fr))", gap: 10, marginTop: 10 }}>
+          <div>
             <label className="muted">Fecha</label>
             <input className="input" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
           </div>
-          <div style={{ flex: 1 }}>
+          <div>
             <label className="muted">Monto (CLP)</label>
             <input className="input" inputMode="numeric" value={amount} onChange={(e) => setAmount(e.target.value.replace(/[^\d]/g, ""))} />
           </div>

@@ -65,7 +65,7 @@ export default function Dashboard() {
       <div className="grid grid2" style={{ marginBottom: 12 }}>
         <div className="card" style={{ borderColor: stats.owe > 0 ? "#5a2000" : "var(--border)" }}>
           <div style={{ fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: stats.owe > 0 ? "#ff9800" : "var(--muted)", marginBottom: 6 }}>
-            Debés
+            Debes
           </div>
           <div style={{ fontSize: 28, fontWeight: 900, color: stats.owe > 0 ? "#ff9800" : "var(--text)" }}>
             ${clp(stats.owe)}
