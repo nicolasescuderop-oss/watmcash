@@ -75,9 +75,9 @@ export default function ChooseMonster() {
                   style={{
                     position: "absolute",
                     top: "-10%",       /* sube la imagen para centrar las caras */
-                    left: "-5%",
-                    width: "115%",     /* zoom leve para tapar bordes blancos */
-                    height: "115%",
+                    left: "-10%",
+                    width: "120%",     /* zoom leve para tapar bordes blancos */
+                    height: "120%",
                     objectFit: "cover",
                     objectPosition: "top center",
                   }}
