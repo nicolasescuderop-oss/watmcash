@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../supabase";
 import { getMonster } from "../storage";
 import { clp } from "../helpers";
+import { logAction } from "../audit";
 
 export default function MyPending() {
   const nav = useNavigate();
@@ -42,21 +43,47 @@ export default function MyPending() {
 
   async function markPaid(id) {
     if (!me) return;
+    const row = pending.find(r => r.id === id);
     const { error } = await supabase.from("payments").update({
       status: "paid",
       paid_at: new Date().toISOString(),
       marked_paid_by_monster_id: me.id,
     }).eq("id", id);
-    if (error) setErr(error.message);
-    else load();
+    if (error) { setErr(error.message); return; }
+    await logAction({
+      action: "MARK_PAID",
+      entity: "payment",
+      entityId: id,
+      monsterCode: monsterCode,
+      monsterName: me.display_name,
+      detail: {
+        expense_description: row?.expenses?.description,
+        amount: row?.amount,
+        to_monster: row?.to_monster?.display_name,
+      }
+    });
+    load();
   }
 
   async function revert(id) {
+    const row = paid.find(r => r.id === id);
     const { error } = await supabase.from("payments").update({
       status: "pending", paid_at: null, marked_paid_by_monster_id: null,
     }).eq("id", id);
-    if (error) setErr(error.message);
-    else load();
+    if (error) { setErr(error.message); return; }
+    await logAction({
+      action: "REVERT_PAYMENT",
+      entity: "payment",
+      entityId: id,
+      monsterCode: monsterCode,
+      monsterName: me.display_name,
+      detail: {
+        expense_description: row?.expenses?.description,
+        amount: row?.amount,
+        to_monster: row?.to_monster?.display_name,
+      }
+    });
+    load();
   }
 
   return (

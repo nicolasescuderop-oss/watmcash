@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../supabase";
 import { getMonster } from "../storage";
 import { clp } from "../helpers";
+import { logAction } from "../audit";
 
 export default function MyReceivables() {
   const nav = useNavigate();
@@ -47,13 +48,26 @@ export default function MyReceivables() {
 
   async function markPaid(id) {
     if (!me) return;
+    const row = payments.find(r => r.id === id);
     const { error } = await supabase.from("payments").update({
       status: "paid",
       paid_at: new Date().toISOString(),
       marked_paid_by_monster_id: me.id,
     }).eq("id", id);
-    if (error) setErr(error.message);
-    else load();
+    if (error) { setErr(error.message); return; }
+    await logAction({
+      action: "MARK_PAID_BY_CREDITOR",
+      entity: "payment",
+      entityId: id,
+      monsterCode: monsterCode,
+      monsterName: me.display_name,
+      detail: {
+        expense_description: row?.expenses?.description,
+        amount: row?.amount,
+        from_monster: row?.from_monster?.display_name,
+      }
+    });
+    load();
   }
 
   const totalPending = payments.filter(p => p.status === "pending").reduce((s, p) => s + p.amount, 0);

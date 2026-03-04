@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../supabase";
 import { getMonster } from "../storage";
 import { clp } from "../helpers";
+import { logAction } from "../audit";
 
 const DELETED_KEY = "watm_deleted_expenses";
 
@@ -54,6 +55,19 @@ export default function AllExpenses() {
     if (!ok) return;
     const { error } = await supabase.from("expenses").delete().eq("id", row.id);
     if (error) return setErr(error.message);
+    await logAction({
+      action: "DELETE_EXPENSE",
+      entity: "expense",
+      entityId: row.id,
+      monsterCode: monsterCode,
+      monsterName: me.display_name,
+      detail: {
+        description: row.description,
+        amount: row.amount,
+        expense_date: row.expense_date,
+        paid_by: row.paid_by?.display_name,
+      }
+    });
     const newDeleted = [
       { id: row.id, description: row.description, expense_date: row.expense_date, amount: row.amount, paid_by: row.paid_by, deleted_at: new Date().toISOString() },
       ...getDeleted(),

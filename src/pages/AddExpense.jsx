@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../supabase";
 import { getMonster } from "../storage";
 import { clp, todayISO } from "../helpers";
+import { logAction } from "../audit";
 
 export default function AddExpense() {
   const nav = useNavigate();
@@ -100,7 +101,19 @@ export default function AddExpense() {
         const { error: e3 } = await supabase.from("payments").insert(rowsPayments);
         if (e3) throw e3;
       }
-
+      await logAction({
+        action: "ADD_EXPENSE",
+        entity: "expense",
+        entityId: expense.id,
+        monsterCode: monsterCode,
+        monsterName: me.display_name,
+        detail: {
+          description: desc.trim(),
+          amount: amountInt,
+          expense_date: date,
+          participants: participantIds.length,
+        }
+      });
       nav("/dashboard");
     } catch (e) {
       setErr(e.message || "Error guardando.");
