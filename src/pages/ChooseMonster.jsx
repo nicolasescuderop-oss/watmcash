@@ -35,12 +35,13 @@ export default function ChooseMonster() {
 
         <h1 style={{
           textAlign: "center",
-          fontSize: 28,
+          fontSize: 36,
           fontWeight: 900,
-          letterSpacing: 3,
+          letterSpacing: 4,
           textTransform: "uppercase",
           marginBottom: 24,
           color: "#fff",
+          fontFamily: "'Metal Mania', cursive",
         }}>
           Choose Your Monster
         </h1>
@@ -75,8 +76,8 @@ export default function ChooseMonster() {
                     position: "absolute",
                     top: "-10%",       /* sube la imagen para centrar las caras */
                     left: "-5%",
-                    width: "110%",     /* zoom leve para tapar bordes blancos */
-                    height: "110%",
+                    width: "115%",     /* zoom leve para tapar bordes blancos */
+                    height: "115%",
                     objectFit: "cover",
                     objectPosition: "top center",
                   }}
