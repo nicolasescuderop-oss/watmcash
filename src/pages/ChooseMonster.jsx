@@ -60,7 +60,7 @@ export default function ChooseMonster() {
                 position: "relative",
                 height: 200,
                 borderRadius: 14,
-                border: "1px solid #34346a",
+                border: "none",
                 overflow: "hidden",
                 cursor: "pointer",
                 background: "#141422",
