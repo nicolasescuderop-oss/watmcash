@@ -9,8 +9,7 @@ export default function ChooseMonster() {
   const [err, setErr] = useState("");
 
   useEffect(() => {
-    const existing = getMonster();
-    if (existing) nav("/dashboard");
+    if (getMonster()) nav("/dashboard");
   }, [nav]);
 
   useEffect(() => {
@@ -27,29 +26,58 @@ export default function ChooseMonster() {
   return (
     <div className="container">
       <div className="card">
-        <h1 className="h1">Choose your Monster</h1>
-        <div className="muted">Sin login: selecciona tu personaje para esta sesión.</div>
+        <h1 className="h1" style={{ fontSize: 26, textAlign: "center", marginBottom: 4 }}>
+          ¿Quién sos?
+        </h1>
+        <div className="muted" style={{ textAlign: "center", marginBottom: 16 }}>
+          Seleccioná tu Monster para esta sesión
+        </div>
         {err && <p style={{ color: "salmon" }}>{err}</p>}
-        <div className="hr" />
         <div className="grid grid3">
           {monsters.map((m) => (
             <button
               key={m.id}
-              className="card btnSecondary"
+              onClick={() => { setMonster(m.code); nav("/dashboard"); }}
               style={{
-                textAlign: "left",
-                minHeight: 90,
-                backgroundImage: m.avatar_url ? `url(${m.avatar_url})` : undefined,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-              onClick={() => {
-                setMonster(m.code);
-                nav("/dashboard");
+                position: "relative",
+                minHeight: 140,
+                borderRadius: 14,
+                border: "1px solid #34346a",
+                overflow: "hidden",
+                cursor: "pointer",
+                background: m.avatar_url ? "transparent" : "#141422",
+                padding: 0,
               }}
             >
-              <div style={{ fontSize: 18, fontWeight: 700 }}>{m.display_name}</div>
-              <div className="muted">{m.code}</div>
+              {/* Foto de fondo */}
+              {m.avatar_url && (
+                <img
+                  src={m.avatar_url}
+                  alt={m.display_name}
+                  style={{
+                    position: "absolute", inset: 0,
+                    width: "100%", height: "100%",
+                    objectFit: "cover",
+                  }}
+                />
+              )}
+              {/* Overlay degradé */}
+              <div style={{
+                position: "absolute", inset: 0,
+                background: "linear-gradient(to top, rgba(0,0,0,0.85) 40%, rgba(0,0,0,0.1) 100%)",
+              }} />
+              {/* Nombre */}
+              <div style={{
+                position: "absolute", bottom: 0, left: 0, right: 0,
+                padding: "12px 10px",
+                color: "#fff",
+                fontWeight: 800,
+                fontSize: 16,
+                textAlign: "center",
+                letterSpacing: 0.5,
+              }}>
+                {m.display_name}
+              </div>
             </button>
           ))}
         </div>

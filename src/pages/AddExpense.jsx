@@ -160,6 +160,14 @@ export default function AddExpense() {
               className={`pill ${selected.has(m.id) ? "pillOn" : ""}`}
               onClick={() => toggle(m.id)}
               type="button"
+              style={{
+                fontSize: 14,
+                fontWeight: selected.has(m.id) ? 700 : 400,
+                padding: "8px 14px",
+                borderColor: selected.has(m.id) ? "#7c7cff" : "#34346a",
+                color: selected.has(m.id) ? "#fff" : "rgba(255,255,255,0.6)",
+                background: selected.has(m.id) ? "#24244a" : "transparent",
+              }}
             >
               {m.display_name}
             </button>
