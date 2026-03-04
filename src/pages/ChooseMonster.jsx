@@ -32,7 +32,6 @@ export default function ChooseMonster() {
       padding: 20,
     }}>
       <div style={{ width: "100%", maxWidth: 700 }}>
-
         <h1 style={{
           textAlign: "center",
           fontSize: 36,
@@ -74,9 +73,9 @@ export default function ChooseMonster() {
                   alt={m.display_name}
                   style={{
                     position: "absolute",
-                    top: "-10%",       /* sube la imagen para centrar las caras */
+                    top: "-10%",
                     left: "-10%",
-                    width: "120%",     /* zoom leve para tapar bordes blancos */
+                    width: "120%",
                     height: "120%",
                     objectFit: "cover",
                     objectPosition: "top center",
@@ -95,10 +94,11 @@ export default function ChooseMonster() {
                 padding: "12px 10px",
                 color: "#fff",
                 fontWeight: 800,
-                fontSize: 15,
+                fontSize: 18,
                 textAlign: "center",
-                letterSpacing: 1,
+                letterSpacing: 2,
                 textTransform: "uppercase",
+                fontFamily: "'AnotherDanger', cursive",
               }}>
                 {m.display_name}
               </div>
