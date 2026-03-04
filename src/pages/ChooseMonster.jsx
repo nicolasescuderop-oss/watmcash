@@ -41,7 +41,7 @@ export default function ChooseMonster() {
           textTransform: "uppercase",
           marginBottom: 24,
           color: "#fff",
-          fontFamily: "'AnotherDanger', normal",
+          fontFamily: "'AnotherDanger', cursive",
         }}>
           Choose Your Monster
         </h1>
