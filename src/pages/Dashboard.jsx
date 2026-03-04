@@ -52,16 +52,11 @@ export default function Dashboard() {
     <div className="container" style={{ paddingTop: 32 }}>
 
       {/* Header */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 28 }}>
-        <div>
-          <div style={{ fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: "var(--cyan)", opacity: 0.7, marginBottom: 4 }}>
-            Monster activo
-          </div>
-          <div style={{ fontSize: 26, fontWeight: 900, letterSpacing: 1 }}>{me?.display_name}</div>
+      <div style={{ marginBottom: 28, paddingTop: 16 }}>
+        <div style={{ fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: "var(--cyan)", opacity: 0.7, marginBottom: 4 }}>
+          Monster activo
         </div>
-        <button className="btn btnSecondary" onClick={() => { clearMonster(); nav("/"); }}>
-          ⇄ Switch
-        </button>
+        <div style={{ fontSize: 26, fontWeight: 900, letterSpacing: 1 }}>{me?.display_name}</div>
       </div>
 
       {err && <p style={{ color: "salmon" }}>{err}</p>}
